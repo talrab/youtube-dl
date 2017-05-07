@@ -2,7 +2,7 @@
 # This small utility uses a commandline tool named youtube-dl to download youtube videos
 # It downloads the links listed in d:\Tal - Work Related\Python\PycharmProjects\youtube-dl\youtube_links.txt
 # currently it only supports mp3/avi/mp4
-# it downloads the videos to the script's location.
+# it downloads the videos to the script's location. 
 #############################################################################################################
 
 import threading
