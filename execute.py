@@ -2,7 +2,10 @@
 # This small utility uses a commandline tool named youtube-dl to download youtube videos
 # It downloads the links listed in d:\Tal - Work Related\Python\PycharmProjects\youtube-dl\youtube_links.txt
 # currently it only supports mp3/avi/mp4
-# it downloads the videos to the script's location. 
+# it downloads the videos to the specified location in 'downloaded_location'.
+# for formats transformation it uses ffmpeg
+# the youtube-dl exe and formatting utilities all located in d:\Tal - Work Related\VideoDownloadAndConvertEXE\
+# these utilities also added to the sys Path variable so it can be called from anywhere
 #############################################################################################################
 
 import threading
@@ -20,6 +23,7 @@ def parseVideosFile (filePath):
         youtube_links_list.append([a,b.strip()])   # stripping the \n
     fr.close()
 
+download_location = './DownloadedClips/%(title)s.%(ext)s '   # this is the location to download.
 parseVideosFile("d:\Tal - Work Related\Python\PycharmProjects\youtube-dl\youtube_links.txt")
 print("Downloading a total of " + str(len(youtube_links_list)) + " videos")
 
@@ -37,8 +41,10 @@ for youtube_link_and_format in youtube_links_list:
 
     cmd_command = ""
     if (format == "mp3"):
-        cmd_command = 'youtube-dl.exe -x --extract-audio --audio-format mp3 ' + youtube_link
-    elif (format == "mp4" or format == "avi" ):
+        cmd_command = 'youtube-dl.exe -x --extract-audio --audio-format mp3 ' + download_location + youtube_link
+    elif (format == "mp4"):
+        cmd_command = 'youtube-dl.exe -f bestvideo[ext=mp4] ' + '-o ' + download_location + youtube_link  #-o is for the location
+    elif (format == "avi" ):
         cmd_command = 'youtube-dl.exe --recode-video ' + format + ' ' + youtube_link
 
     t = threading.Thread(target=convert,args=(cmd_command,))
