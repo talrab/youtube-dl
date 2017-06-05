@@ -41,7 +41,7 @@ for youtube_link_and_format in youtube_links_list:
 
     cmd_command = ""
     if (format == "mp3"):
-        cmd_command = 'youtube-dl.exe -x --extract-audio --audio-format mp3 ' + download_location + youtube_link
+        cmd_command = 'youtube-dl.exe -x --extract-audio --audio-format mp3 ' + '-o ' + download_location + youtube_link
     elif (format == "mp4"):
         cmd_command = 'youtube-dl.exe -f bestvideo[ext=mp4] ' + '-o ' + download_location + youtube_link  #-o is for the location
     elif (format == "avi" ):
